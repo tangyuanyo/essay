@@ -1,0 +1,157 @@
+
+访问权限 public protected private
+所有      ★
+子类      ★        ★
+类内      ★        ★        ★
+
+1、final
+
+
+如果我们不希望一个类被继承，我们使用final来修饰这个类。这个类将无法被继承。
+
+
+final---用于类、方法前。
+final类---不可被继承。
+final方法---不可被覆盖。
+
+
+2、public 表示全局，类内部外部子类都可以访问；private表示私有的，只有本类内部可以使用；protected表示受保护的，只有本类或子类或父类中可以访问；
+
+
+3、this是指向当前对象的指针（可以看成C里面的指针），self是指向当前类的指针，parent是指向父类的指针
+
+
+self：当变量，方法设置为static时，在本类中调用用self
+
+
+4、static
+
+
+声明类成员或方法为 static ，就可以不实例化类而直接访问，不能通过一个对象来访问其中的静态成员（静态方法除外）。静态成员属于类，不属于任何对象实例，但类的对象实例都能共享。
+
+
+然后我们再看一下使用$object->… 和使用class::… 都有什么区别：
+1. 使用$object->… ，需要执行构造函数创建对象；
+2. 使用class::… 调用静态方法/变量，不需要执行构造函数创建对象；
+3. 使用class::… 调用非静态方法/变量，也不需要执行构造函数创建对象。
+
+
+5、abstract 抽象
+
+
+一、 抽象类abstract class
+
+
+1 ．抽象类是指在 class 前加了 abstract 关键字且存在抽象方法（在类方法 function 关键字前加了 abstract 关键字）的类。
+
+
+2 ．抽象类不能被直接实例化。抽象类中只定义（或部分实现）子类需要的方法。子类可以通过继承抽象类并通过实现抽象类中的所有抽象方法，使抽象类具体化。
+
+
+3 ．如果子类需要实例化，前提是它实现了抽象类中的所有抽象方法。如果子类没有全部实现抽象类中的所有抽象方法，那么该子类也是一个抽象类，必须在 class 前面加上 abstract 关键字，并且不能被实例化。
+
+
+6、interface 接口
+
+
+1 ．抽象类提供了具体实现的标准，而接口则是纯粹的模版。接口只定义功能，而不包含实现的内容。接口用关键字 interface 来声明。
+
+
+2 ． interface 是完全抽象的，只能声明方法，而且只能声明 public 的方法，不能声明 private 及 protected 的方法，不能定义方法体，也不能声明实例变量 。然而， interface 却可以声明常量变量 。但将常量变量放在 interface 中违背了其作为接口的作用而存在的宗旨，也混淆了 interface 与类的不同价值。如果的确需要，可以将其放在相应的 abstract class 或 Class 中。
+
+
+7、instanceof
+
+
+PHP5的另一个新成员是instdnceof关键字。使用这个关键字可以确定一个对象是类的实例、类的子类，还是实现了某个特定接口，并进行相应的操作。在某些情况下，我们希望确定某个类是否特定的类型，或者是否实现了特定的接口。instanceof操作符非常适合完成这个任务。instanceof操作符检查三件事情：实例是否某个特定的类型，实例是否从某个特定的类型继承，实例或者他的任何祖先类是否实现了特定的接口。例如，假设希望了解名为manager的对象是否为类Employee的实例：
+$manager = new Employee();
+if ($manager instanceof Employee)
+  echo "Yes";
+
+
+有两点值得注意。首先，类名没有任何定界符（引号）。使用定界符将导致语法错误。其次，如果比较失败，脚本将退出执行。instanceof关键字在同时处理多个对象时特别有用。例如，你可能要重复地调用某个函数，但希望根据对象类型调整函数的行为。可以使用case语句和instanceof关键字来实现这个目标。
+class test{}
+class test{}
+class testChilern Extends test{}
+$a = new test();
+$m = new test();
+$i = ($m instanceof test);
+if($i)
+  echo '$m是类test的实例！<br />'; // get this value
+switch ($a instanceof test){
+  case true :
+    echo 'YES<br />';
+    break;
+  case false :
+    echo 'No<br />'; //get this value
+    break;
+}
+$d=new testChilern();
+if($d instanceof test)echo '$d是类test的子类！<br />'; // get this value
+
+
+php中 instanceof有什么作用
+
+
+作用：（1）判断一个对象是否是某个类的实例，（2）判断一个对象是否实现了某个接口。
+
+
+第一种用法：
+<?php
+$obj = new A();
+if ($obj instanceof A) {
+  echo 'A';
+}
+
+
+第二种用法：
+
+
+<?php
+interface ExampleInterface
+{
+   public function interfaceMethod();
+ }
+ class ExampleClass implements ExampleInterface
+{
+   public function interfaceMethod()
+   {
+     return 'Hello World!';
+   }
+ }
+$exampleInstance = new ExampleClass();
+ if($exampleInstance instanceof ExampleInterface){
+   echo 'Yes, it is';
+ }else{
+   echo 'No, it is not';
+}
+?>
+
+
+输出结果：Yes, it is
+
+
+另外，需注意 instanceof 与 is_subclass_of() 的区别
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
